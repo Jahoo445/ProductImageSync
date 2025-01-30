@@ -1,7 +1,55 @@
+import {config} from "dotenv";
+import getPicture from "./functions/getPicture";
+import getProducts from "./functions/getProducts";
+import getProductInfo from "./functions/getProductInfo";
+import getPictureLink from "./functions/getPictureLink";
+import uploadPicture from "./functions/uploadPicture";
+import setPicture from "./functions/setPicture";
+
+config();
+
 async function importExportFunction(): Promise<void> {
     try {
-        const products = await getProducts();
+        let productsCount = 0;
 
+        // const productResponse = await getProducts(1);
+        //
+        // const productsResponse = await getProducts(productResponse.info.numberOfItems);
+
+        const productsResponse = await getProducts(10);
+
+        const products = productsResponse.data;
+
+        for (const product of products) {
+            console.log('product count is:', productsCount + 1);
+
+            const productInfo = await getProductInfo(parseInt(product.Id))
+
+            if (!productInfo.lists.Barcodes) {
+                console.warn('No barcode found for product:', productInfo.properties.Title);
+                productsCount++;
+                continue;
+            }
+
+            for (const barcode of productInfo.lists.Barcodes) {
+                const link = await getPictureLink(barcode.Barcode);
+
+                if (link === '404') {
+                    console.warn('No picture found for barcode:', barcode.Barcode);
+                    continue;
+                }
+                const pictureTitle = productInfo.properties.Title.trim().replace(/ /g, '').toLowerCase();
+
+                await getPicture(link, pictureTitle);
+
+                const uploadResponse = await uploadPicture(pictureTitle);
+
+                await setPicture(uploadResponse.apiPath, parseInt(product.Id));
+
+            }
+
+            productsCount++;
+        }
     } catch (error) {
         console.error("Error fetching data:", error);
     }

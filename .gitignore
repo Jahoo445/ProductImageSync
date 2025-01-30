@@ -9,7 +9,7 @@ dist/
 *.d.ts
 
 # Environment files (keep secrets out of Git)
-.env
+src/.env
 .env.local
 .env.development
 .env.production
@@ -31,3 +31,8 @@ lerna-debug.log*
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+
+pictures/
+
+*.png

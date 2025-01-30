@@ -1,0 +1,62 @@
+export type getProductInfoResponse = {
+    properties: {
+        Title: string;
+        Name: { id: string; name: string }[];
+        ShortName: { id: string }[];
+        Number: string;
+        ProductAssortments: { id: string; name: string }[];
+        DatacenterCode: { id: string; name: string }[];
+        ExternalId: string;
+        Unit: { id: string; name: string }[];
+        ProductGroup: { id: string; name: string }[];
+        BusinessUnit: { id: string; name: string }[];
+        SalesProfile: { id: string; name: string }[];
+        Tax: { id: string; name: string }[];
+        TakeAwayTax: { id: string; name: string }[];
+        Weighable: string;
+        FreePrice: string;
+        DiscountLock: string;
+        PromotionLock: string;
+        LoyaltyPointsLock: string;
+        SalesLock: string;
+        IsDeposit: string;
+        Tags: any[]; // Assuming an array of unknown values
+        CategoryProductTags: any[];
+        Picture: string;
+        ForceReceiptPrint: string;
+        CommissionFree: string;
+        NoEffectOnMargins: string;
+        AllergyTypes: any[];
+        AllergyTypesTraceHints: any[];
+        Ingredients: { id: string }[];
+        Countries: any[];
+        ProductDeclarations: any[];
+        CategoryProductDeclarations: any[];
+        AdditionalSpecification: { id: string }[];
+        Price: string;
+        MaximumPriceIncrease: string;
+        CurrencyName: string;
+        BasePriceReferenceSize: string;
+        BasePriceUnit: { id: string; name: string }[];
+        FillingQuantity: string;
+        PriceOnProduct: string;
+        Editable: string;
+        Id: string;
+        HospitalityDishDetail___KitchenPrinterLayout: { id: string; name: string }[];
+        LabelPrintingProductExtension___AutoPrintLabelLayout: { id: string; name: string }[];
+        LabelPrintingProductExtension___AutoPrintLabelLayoutSource: string;
+        PosProductExtension___CanChangeBasketProductQuantity: string;
+        PosProductExtension___IsExcludedFromBasketProductCounter: string;
+    };
+    lists: {
+        Barcodes: {
+            Barcode: string;
+            ValidatorName: { id: string; name: string }[];
+            LabelPrinting: string;
+            IsValid: { id: string; name: string; color: string }[];
+            CanSelect: string;
+            Id: string;
+        }[];
+    };
+    checkSum: string;
+};
