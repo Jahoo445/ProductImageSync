@@ -21,34 +21,37 @@ async function importExportFunction(): Promise<void> {
         const products = productsResponse.data;
 
         for (const product of products) {
-            console.log('product count is:', productsCount + 1);
+            try {
+                console.log('product count is:', productsCount + 1);
 
-            const productInfo = await getProductInfo(parseInt(product.Id))
+                const productInfo = await getProductInfo(parseInt(product.Id))
 
-            if (!productInfo.lists.Barcodes) {
-                console.warn('No barcode found for product:', productInfo.properties.Title);
-                productsCount++;
-                continue;
-            }
-
-            for (const barcode of productInfo.lists.Barcodes) {
-                const link = await getPictureLink(barcode.Barcode);
-
-                if (link === '404') {
+                if (!productInfo.lists.Barcodes) {
+                    console.warn('No barcode found for product:', productInfo.properties.Title);
+                    productsCount++;
                     continue;
                 }
-                const pictureTitle = productInfo.properties.Title.trim().replace(/ /g, '').toLowerCase();
 
-                await getPicture(link, pictureTitle);
+                for (const barcode of productInfo.lists.Barcodes) {
+                    const link = await getPictureLink(barcode.Barcode);
 
-                const uploadResponse = await uploadPicture(pictureTitle);
+                    if (link === '404') {
+                        continue;
+                    }
+                    const pictureTitle = productInfo.properties.Title.trim().replace(/ /g, '').toLowerCase();
 
-                await setPicture(uploadResponse.apiPath, parseInt(product.Id));
+                    await getPicture(link, pictureTitle);
 
-                break;
+                    const uploadResponse = await uploadPicture(pictureTitle);
+
+                    await setPicture(uploadResponse.apiPath, parseInt(product.Id));
+
+                    break;
+                }
+                productsCount++;
+            } catch (error) {
+                console.error(`Error processing product: ${product.Id}`, error);
             }
-
-            productsCount++;
         }
     } catch (error) {
         console.error("Error fetching data:", error);

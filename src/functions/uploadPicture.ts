@@ -9,7 +9,7 @@ export default async function uploadPicture(filename: string): Promise<UploadRes
 
         const formData = new FormData();
         const blob = new Blob([fileBuffer], {type: "image/png"});
-        formData.append("file", blob, filename);
+        formData.append("file", blob, filename + '.png');
 
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -24,7 +24,7 @@ export default async function uploadPicture(filename: string): Promise<UploadRes
         }
 
         const responseBody = await response.json();
-        
+
         return responseBody as UploadResponse;
     } catch (error) {
         throw new Error(`Error uploading file: ${(error as Error).message}`);
