@@ -1,12 +1,10 @@
 # Node.js dependencies
 node_modules/
-package-lock.json
 
 # TypeScript build output
 dist/
 *.js
 *.js.map
-*.d.ts
 
 # Environment files (keep secrets out of Git)
 src/.env
