@@ -7,4 +7,6 @@ async function importExportFunction(): Promise<void> {
     }
 }
 
-importExportFunction();
+importExportFunction()
+    .then(() => console.log("Import/export process completed"))
+    .catch(error => console.error("Unhandled error:", error));

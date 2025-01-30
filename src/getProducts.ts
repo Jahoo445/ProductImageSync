@@ -1,6 +1,4 @@
-import {getProductsResponseType} from "./types/getProductsResponseType";
-
-async function getProducts(): Promise<getProductsResponseType> {
+async function getProducts(): Promise<GetProductsResponse> {
     const url = "https://business.dev.cirrusoft.ch/api/vme/viewmodel/data/list/MdmProducts?api-version=1.0&asc=true&pageSize=33184";
 
     try {
@@ -15,14 +13,12 @@ async function getProducts(): Promise<getProductsResponseType> {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json() as getProductsResponseType;
+        const data = await response.json() as GetProductsResponse;
         console.log(data);
 
         return data;
     } catch (error) {
         console.error("Error fetching data:", error);
+        throw error; // Ensure errors propagate
     }
 }
-
-
-

@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["ES2017", "DOM"],
-    "outDir": "./dist"
+    "lib": [
+      "ES2017",
+      "DOM"
+    ],
+    "outDir": "./dist",
+    "include": [
+      "global.d.ts",
+      "src/**/*.ts"
+    ]
   }
 }
