@@ -24,11 +24,7 @@ export default async function uploadPicture(filename: string): Promise<UploadRes
         }
 
         const responseBody = await response.json();
-
-        console.log(`Image ${filename}.png uploaded successfully!`);
-
-        console.log(responseBody);
-
+        
         return responseBody as UploadResponse;
     } catch (error) {
         throw new Error(`Error uploading file: ${(error as Error).message}`);

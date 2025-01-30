@@ -6,7 +6,7 @@ export default async function getPictureLink(productBarcode: string): Promise<st
     });
 
     if (response.status === 404) {
-        console.info('No picture found for barcode:', productBarcode);
+        console.warn('No picture found for barcode:', productBarcode);
         return '404';
     } else if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

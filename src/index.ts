@@ -35,7 +35,6 @@ async function importExportFunction(): Promise<void> {
                 const link = await getPictureLink(barcode.Barcode);
 
                 if (link === '404') {
-                    console.warn('No picture found for barcode:', barcode.Barcode);
                     continue;
                 }
                 const pictureTitle = productInfo.properties.Title.trim().replace(/ /g, '').toLowerCase();
@@ -46,6 +45,7 @@ async function importExportFunction(): Promise<void> {
 
                 await setPicture(uploadResponse.apiPath, parseInt(product.Id));
 
+                break;
             }
 
             productsCount++;

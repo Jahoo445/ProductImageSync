@@ -16,7 +16,7 @@ export default async function setPicture(pictureApiPath: string, productId: numb
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    console.log(`Picture set for product: ${productId}`);
+    console.log(`\x1b[32mPicture set for product: ${productId}\x1b[0m`);
 
     return;
 }
