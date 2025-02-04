@@ -4,29 +4,26 @@ export default async function uploadPicture(filename: string): Promise<UploadRes
     const apiUrl = `${process.env.APIURL}/api/img/upload`;
     const filePath = `pictures/${filename}.png`;
 
-    try {
-        const fileBuffer = await fs.readFile(filePath);
+    const fileBuffer = await fs.readFile(filePath);
 
-        const formData = new FormData();
-        const blob = new Blob([fileBuffer], {type: "image/png"});
-        formData.append("file", blob, filename + '.png');
+    const formData = new FormData();
+    const blob = new Blob([fileBuffer], {type: "image/png"});
+    formData.append("file", blob, filename + '.png');
 
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "Authorization": `Bearer ${process.env.APIKEY}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}, Message: ${await response.text()}`);
+    const response = await fetch(apiUrl, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Authorization": `Bearer ${process.env.APIKEY}`
         }
+    });
 
-        const responseBody = await response.json();
-
-        return responseBody as UploadResponse;
-    } catch (error) {
-        throw new Error(`Error uploading file: ${(error as Error).message}`);
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}, Message: ${await response.text()}`);
     }
+
+    const responseBody = await response.json();
+
+    return responseBody as UploadResponse;
+
 }

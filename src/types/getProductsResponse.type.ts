@@ -24,7 +24,7 @@ type Assortment = {
     name: string;
 };
 
-type Product = {
+export type IProduct = {
     Number: string;
     Name: string;
     Unit: string;
@@ -49,5 +49,5 @@ type Product = {
 
 export type getProductsResponseType = {
     info: Info;
-    data: Product[];
+    data: IProduct[];
 };
